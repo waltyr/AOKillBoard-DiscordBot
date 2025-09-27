@@ -23,8 +23,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 * [NodeJS](https://nodejs.org/)
 * [Docker](https://www.docker.com/)
-* [AWS CLI](https://aws.amazon.com/cli/) (for running on EC2)
-* [SSH Client](https://www.ssh.com/ssh/putty/windows/) (for connecting to EC2)
+* Some dedicated server, cloud or otherwise if you want to host it
 
 ### Installing
 
