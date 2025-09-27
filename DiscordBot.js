@@ -125,7 +125,7 @@ class DiscordBot {
   async postKill(kill) {
     const imageGenerator = new ImageGenerator();
 
-    if (kill.TotalVictimKillFame === 0) return;
+    //if (kill.TotalVictimKillFame === 0) return;
     console.log(`Posting kill: ${kill.EventId}`);
 
     let eventColor = 0x008000;
