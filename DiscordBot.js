@@ -1,4 +1,5 @@
 const { Client, GatewayIntentBits, AttachmentBuilder } = require("discord.js");
+const KillFetcher = require("./KillFetcher");
 const ImageGenerator = require("./ImageGenerator");
 const fs = require("fs");
 
@@ -28,7 +29,9 @@ class DiscordBot {
 
       this.channel = this.client.channels.cache.get(this.config.botChannel);
       if (!this.channel) {
-        console.error(`Bot channel with ID ${this.config.botChannel} not found!`);
+        console.error(
+          `Bot channel with ID ${this.config.botChannel} not found!`,
+        );
       } else {
         console.log(`Bot will post in channel: ${this.channel.name}`);
       }
@@ -37,9 +40,16 @@ class DiscordBot {
     });
 
     this.client.on("messageCreate", async (message) => {
-      if (!message.content.startsWith(this.config.cmdPrefix) || message.author.bot) return;
+      if (
+        !message.content.startsWith(this.config.cmdPrefix) ||
+        message.author.bot
+      )
+        return;
 
-      const args = message.content.slice(this.config.cmdPrefix.length).trim().split(/ +/g);
+      const args = message.content
+        .slice(this.config.cmdPrefix.length)
+        .trim()
+        .split(/ +/g);
       const command = args.shift().toLowerCase();
 
       if (command === "ping") {
@@ -56,7 +66,9 @@ class DiscordBot {
           message.channel.send("Clearing Killboard").then((msg) => {
             message.channel.messages.fetch().then((messages) => {
               message.channel.bulkDelete(messages);
-              console.log(`[ADMIN] ${message.author.username} cleared Killboard`);
+              console.log(
+                `[ADMIN] ${message.author.username} cleared Killboard`,
+              );
             });
           });
         }
@@ -91,19 +103,22 @@ class DiscordBot {
     this.isProcessingQueue = false;
   }
 
-  async postKillWithTimeout(kill, timeout = 30000) { // Timeout set to 30 seconds
+  async postKillWithTimeout(kill, timeout = 30000) {
+    // Timeout set to 30 seconds
     return new Promise((resolve, reject) => {
       const timeoutId = setTimeout(() => {
         reject(new Error(`Timeout exceeded for posting kill ${kill.EventId}`));
       }, timeout);
 
-      this.postKill(kill).then(() => {
-        clearTimeout(timeoutId);
-        resolve();
-      }).catch((error) => {
-        clearTimeout(timeoutId);
-        reject(error);
-      });
+      this.postKill(kill)
+        .then(() => {
+          clearTimeout(timeoutId);
+          resolve();
+        })
+        .catch((error) => {
+          clearTimeout(timeoutId);
+          reject(error);
+        });
     });
   }
 
@@ -115,8 +130,10 @@ class DiscordBot {
 
     let eventColor = 0x008000;
     if (
-      kill.Victim.AllianceName.toLowerCase() === this.config.allianceName.toLowerCase() ||
-      kill.Victim.GuildName.toLowerCase() === this.config.guildName.toLowerCase() ||
+      kill.Victim.AllianceName.toLowerCase() ===
+        this.config.allianceName.toLowerCase() ||
+      kill.Victim.GuildName.toLowerCase() ===
+        this.config.guildName.toLowerCase() ||
       this.playerNames.includes(kill.Victim.Name.toLowerCase())
     ) {
       eventColor = 0x880808;
