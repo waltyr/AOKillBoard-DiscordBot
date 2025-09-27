@@ -3,6 +3,7 @@
 A Discord bot for Albion Online's kill board.
 
 Forked from [Pierre Donal Feza](https://github.com/pierrefeza) Discord: **yokokosparda**
+Dependencies where broke, so I forked and updated them so I can run it.
 
 ## Getting Started
 
@@ -10,9 +11,6 @@ These instructions will get you a copy of the project up and running on your loc
 
 ![image](https://github.com/pierrefeza/AOKillBoard-DiscordBot/assets/174371609/7540fa1f-c292-4e18-812b-db23c80f66e0)
 ![image](https://github.com/pierrefeza/AOKillBoard-DiscordBot/assets/174371609/f8840047-aaf0-4b30-864e-afe4592831a8)
-
-
-
 
 ### Usage
 
@@ -101,7 +99,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ## Credits
 
-* Current working state by [Pierre Donal Feza](https://github.com/pierrefeza) Discord: **yokokosparda**
+* Forked from [Pierre Donal Feza](https://github.com/pierrefeza) Discord: **yokokosparda**
 * [UI Layout inspiration](https://albion-killbot.com) - albion-killbot
 * [Initial Implementation](https://github.com/bearlikelion/ao-killbot/) from **Mark Arneman**
 
