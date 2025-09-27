@@ -48,11 +48,7 @@ class ImageGenerator {
     ctx.fillText(new Date(kill.TimeStamp).toLocaleString(), 600, 105);
 
     if (kill.Participants.length > 1) {
-      const participantsIcon = await loadImage(
-        await this.downloadImage(
-          "https://cdn.albiononline2d.com/game-images/INFO_ICON_PARTYFINDER.png",
-        ),
-      );
+      const participantsIcon = await loadImage("./INFO_ICON_PARTYFINDER.png");
       const participantsIconSize = 70;
       const participantsY = 200;
       ctx.drawImage(
