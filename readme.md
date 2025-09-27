@@ -3,6 +3,7 @@
 A Discord bot for Albion Online's kill board.
 
 Forked from [Pierre Donal Feza](https://github.com/pierrefeza) Discord: **yokokosparda**
+
 Dependencies where broke, so I forked and updated them so I can run it.
 
 ## Getting Started
