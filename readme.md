@@ -43,20 +43,6 @@ Forked from [Pierre Donal Feza](https://github.com/pierrefeza)
     * Copy `config.json.example` to `config.json`
     * Update `config.json` with your bot token, botChannel, and other necessary details.
 
-    Example `config.json`:
-    ```{
-    "cmdPrefix": "!",
-    "allianceName": "<NONE>",
-    "guildName": "8-bit",
-    "username": "AOKillBoard-DiscordBot",
-    "admins": [
-        "ADMIN_ID"
-    ],
-    "botChannel": "445822300890946337",
-    "playingGame": "Albion Killboard Bot",
-    "token": "YOUR_DISCORD_BOT_TOKEN"
-    }```
-
 ### 2. Running with Docker Locally
 
 1. **Build the Docker image:**
@@ -78,14 +64,6 @@ Forked from [Pierre Donal Feza](https://github.com/pierrefeza)
     docker build -t aokillboard-discordbot .
     docker run -d --name aokillboard-discordbot aokillboard-discordbot
     docker logs -f aokillboard-discordbot
-
- 11. **Commands to clean docker env***
-      ```sh
-      docker image prune -a -f
-      docker container prune -f
-      docker volume prune -f
-      docker network prune -f
-      docker system prune -a -f
 
 
 ### Built With
