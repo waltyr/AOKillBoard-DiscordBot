@@ -4,14 +4,10 @@ A Discord bot for Albion Online's kill board.
 
 Forked from [Pierre Donal Feza](https://github.com/pierrefeza)
 
-Dependencies where broke, so I forked and updated them so I can run it.
-
-## Getting Started
-
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
-
-![image](https://github.com/pierrefeza/AOKillBoard-DiscordBot/assets/174371609/7540fa1f-c292-4e18-812b-db23c80f66e0)
-![image](https://github.com/pierrefeza/AOKillBoard-DiscordBot/assets/174371609/f8840047-aaf0-4b30-864e-afe4592831a8)
+### Changelog
+- Fixed dependencies
+- Removed imgur links and albion2d cdn usage, as they did not work on my end.
+- Added used images locally for image generation
 
 ### Usage
 
@@ -39,7 +35,7 @@ These instructions will get you a copy of the project up and running on your loc
     npm install
 
 3. **Create a new Discord Application:**
-    * Visit [the Discord Developer Portal](https://discordapp.com/developers/applications/) 
+    * Visit [the Discord Developer Portal](https://discordapp.com/developers/applications/)
     * Create a new application and add a bot to it.
     * Copy the 'BOT' token
 
@@ -69,7 +65,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 2. **Run the Docker container:**
     ```sh
-    docker run -d --name aokillboard-discordbot aokillboard-discordbot 
+    docker run -d --name aokillboard-discordbot aokillboard-discordbot
 
 3. **Check the logs:**
     ```sh
@@ -102,8 +98,3 @@ These instructions will get you a copy of the project up and running on your loc
 * Forked from [Pierre Donal Feza](https://github.com/pierrefeza) Discord: **yokokosparda**
 * [UI Layout inspiration](https://albion-killbot.com) - albion-killbot
 * [Initial Implementation](https://github.com/bearlikelion/ao-killbot/) from **Mark Arneman**
-
-
-
-
-

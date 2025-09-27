@@ -12,10 +12,8 @@ class ImageGenerator {
     const canvas = createCanvas(1200, 800);
     const ctx = canvas.getContext("2d");
 
-    //const backgroundImage = await loadImage(
-    //  await this.downloadImage("https://i.imgur.com/Cf4Ysrv.jpg"),
-    //);
-    //ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
+    const backgroundImage = await loadImage("./background.jpeg");
+    ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
 
     ctx.fillStyle = "rgba(0, 0, 0, 0.8)";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -37,11 +35,7 @@ class ImageGenerator {
       30,
     );
 
-    const timestampIcon = await loadImage(
-      await this.downloadImage(
-        "https://render.albiononline.com/v1/spell/SUMMONER_CD_REDUCTION.png",
-      ),
-    );
+    const timestampIcon = await loadImage("./SUMMONER_CD_REDUCTION.png");
     const timestampIconSize = 70;
     ctx.font = "16px Arial";
     ctx.drawImage(timestampIcon, 565, 20, timestampIconSize, timestampIconSize);
@@ -66,18 +60,16 @@ class ImageGenerator {
       );
     }
 
-    //const fameIcon = await loadImage(
-    //  await this.downloadImage("https://i.imgur.com/geal9ri.png"),
-    //);
+    const fameIcon = await loadImage("./FAME_ICON.png");
     const fameIconSize = 50;
     const fameY = canvas.height / 2 - 15;
-    //ctx.drawImage(
-    //  fameIcon,
-    //  570,
-    //  fameY - fameIconSize - 5,
-    //  fameIconSize,
-    //  fameIconSize,
-    //);
+    ctx.drawImage(
+      fameIcon,
+      570,
+      fameY - fameIconSize - 5,
+      fameIconSize,
+      fameIconSize,
+    );
     ctx.font = "24px Arial";
     ctx.fillText(
       `Fame: ${this.dFormatter(kill.TotalVictimKillFame)}`,
@@ -90,18 +82,16 @@ class ImageGenerator {
       kill.GroupMembers.length > 1 &&
       kill.GroupMembers.length != kill.Participants.length
     ) {
-      //const groupIcon = await loadImage(
-      //  await this.downloadImage("https://i.imgur.com/josec2F.png"),
-      // );
+      const groupIcon = await loadImage("./GROUP_ICON.png");
       const groupIconSize = 50;
       const groupY = fameY + 110;
-      //ctx.drawImage(
-      //  groupIcon,
-      //  570,
-      //  groupY - groupIconSize + 30,
-      //  groupIconSize,
-      //  groupIconSize,
-      //);
+      ctx.drawImage(
+        groupIcon,
+        570,
+        groupY - groupIconSize + 30,
+        groupIconSize,
+        groupIconSize,
+      );
       ctx.font = "24px Arial";
       ctx.fillText(
         `Group: ${this.dFormatter(kill.GroupMembers.length)}`,
@@ -319,10 +309,8 @@ class ImageGenerator {
     );
     const ctx = canvas.getContext("2d");
 
-    //const backgroundImage = await loadImage(
-    //  await this.downloadImage("https://i.imgur.com/Cf4Ysrv.jpg"),
-    //);
-    //ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
+    const backgroundImage = await loadImage("./background.jpeg");
+    ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
 
     ctx.fillStyle = "rgba(0, 0, 0, 0.8)";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
