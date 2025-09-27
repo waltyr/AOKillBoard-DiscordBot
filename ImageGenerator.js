@@ -4,17 +4,16 @@ const path = require("path");
 const axios = require("axios");
 
 class ImageGenerator {
-
   formatGuildName(allianceName, guildName) {
     return allianceName ? `[${allianceName}] ${guildName}` : guildName;
   }
-  
+
   async generateCompositeImage(kill) {
     const canvas = createCanvas(1200, 800);
     const ctx = canvas.getContext("2d");
 
-    const backgroundImage = await loadImage(await this.downloadImage("https://i.imgur.com/Cf4Ysrv.jpg"));
-    ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
+    //const backgroundImage = await loadImage(await this.downloadImage("https://i.imgur.com/Cf4Ysrv.jpg"));
+    //ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
 
     ctx.fillStyle = "rgba(0, 0, 0, 0.8)";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -25,39 +24,92 @@ class ImageGenerator {
     ctx.fillStyle = "#FFF";
     ctx.font = "24px Arial";
     ctx.textAlign = "center";
-    ctx.fillText(this.formatGuildName(killer.AllianceName, killer.GuildName), 250, 30);
-    ctx.fillText(this.formatGuildName(victim.AllianceName, victim.GuildName), 950, 30);
+    ctx.fillText(
+      this.formatGuildName(killer.AllianceName, killer.GuildName),
+      250,
+      30,
+    );
+    ctx.fillText(
+      this.formatGuildName(victim.AllianceName, victim.GuildName),
+      950,
+      30,
+    );
 
-    const timestampIcon = await loadImage(await this.downloadImage("https://render.albiononline.com/v1/spell/SUMMONER_CD_REDUCTION.png"));
+    const timestampIcon = await loadImage(
+      await this.downloadImage(
+        "https://render.albiononline.com/v1/spell/SUMMONER_CD_REDUCTION.png",
+      ),
+    );
     const timestampIconSize = 70;
     ctx.font = "16px Arial";
     ctx.drawImage(timestampIcon, 565, 20, timestampIconSize, timestampIconSize);
     ctx.fillText(new Date(kill.TimeStamp).toLocaleString(), 600, 105);
 
     if (kill.Participants.length > 1) {
-      const participantsIcon = await loadImage(await this.downloadImage("https://cdn.albiononline2d.com/game-images/INFO_ICON_PARTYFINDER.png"));
+      const participantsIcon = await loadImage(
+        await this.downloadImage(
+          "https://cdn.albiononline2d.com/game-images/INFO_ICON_PARTYFINDER.png",
+        ),
+      );
       const participantsIconSize = 70;
       const participantsY = 200;
-      ctx.drawImage(participantsIcon, 565, participantsY, participantsIconSize, participantsIconSize);
+      ctx.drawImage(
+        participantsIcon,
+        565,
+        participantsY,
+        participantsIconSize,
+        participantsIconSize,
+      );
       ctx.font = "24px Arial";
-      ctx.fillText(`${kill.Participants.length}`, 600, participantsY + participantsIconSize + 20);
+      ctx.fillText(
+        `${kill.Participants.length}`,
+        600,
+        participantsY + participantsIconSize + 20,
+      );
     }
 
-    const fameIcon = await loadImage(await this.downloadImage("https://i.imgur.com/geal9ri.png"));
+    const fameIcon = await loadImage(
+      await this.downloadImage("https://i.imgur.com/geal9ri.png"),
+    );
     const fameIconSize = 50;
     const fameY = canvas.height / 2 - 15;
-    ctx.drawImage(fameIcon, 570, fameY - fameIconSize - 5, fameIconSize, fameIconSize);
+    ctx.drawImage(
+      fameIcon,
+      570,
+      fameY - fameIconSize - 5,
+      fameIconSize,
+      fameIconSize,
+    );
     ctx.font = "24px Arial";
-    ctx.fillText(`${this.dFormatter(kill.TotalVictimKillFame)}`, 600, fameY + 20);
+    ctx.fillText(
+      `${this.dFormatter(kill.TotalVictimKillFame)}`,
+      600,
+      fameY + 20,
+    );
 
     // Add group icon if applicable
-    if (kill.GroupMembers.length > 1 && kill.GroupMembers.length != kill.Participants.length) {
-      const groupIcon = await loadImage(await this.downloadImage("https://i.imgur.com/josec2F.png"));
+    if (
+      kill.GroupMembers.length > 1 &&
+      kill.GroupMembers.length != kill.Participants.length
+    ) {
+      const groupIcon = await loadImage(
+        await this.downloadImage("https://i.imgur.com/josec2F.png"),
+      );
       const groupIconSize = 50;
-      const groupY = fameY + 110; 
-      ctx.drawImage(groupIcon, 570, groupY - groupIconSize + 30, groupIconSize, groupIconSize);
+      const groupY = fameY + 110;
+      ctx.drawImage(
+        groupIcon,
+        570,
+        groupY - groupIconSize + 30,
+        groupIconSize,
+        groupIconSize,
+      );
       ctx.font = "24px Arial";
-      ctx.fillText(`${this.dFormatter(kill.GroupMembers.length)}`, 600, groupY + 50);
+      ctx.fillText(
+        `${this.dFormatter(kill.GroupMembers.length)}`,
+        600,
+        groupY + 50,
+      );
     }
 
     ctx.font = "36px Arial";
@@ -68,7 +120,18 @@ class ImageGenerator {
     ctx.fillText(`IP: ${Math.round(killer.AverageItemPower)}`, 250, 100);
     ctx.fillText(`IP: ${Math.round(victim.AverageItemPower)}`, 950, 100);
 
-    const equipmentTypes = ["Bag", "Head", "Cape", "MainHand", "Armor", "OffHand", "Potion", "Shoes", "Food", "Mount"];
+    const equipmentTypes = [
+      "Bag",
+      "Head",
+      "Cape",
+      "MainHand",
+      "Armor",
+      "OffHand",
+      "Potion",
+      "Shoes",
+      "Food",
+      "Mount",
+    ];
     const gridWidth = 0.42 * canvas.width;
     const iconSize = (gridWidth / 3) * 0.85;
 
@@ -93,29 +156,60 @@ class ImageGenerator {
       const type = equipmentTypes[i];
 
       if (killer.Equipment[type]) {
-        const killerImg = await loadImage(await this.downloadImage(this.getEquipmentImageUrl(killer.Equipment[type])));
-        ctx.drawImage(killerImg, positions[i].x, positions[i].y, iconSize, iconSize);
+        const killerImg = await loadImage(
+          await this.downloadImage(
+            this.getEquipmentImageUrl(killer.Equipment[type]),
+          ),
+        );
+        ctx.drawImage(
+          killerImg,
+          positions[i].x,
+          positions[i].y,
+          iconSize,
+          iconSize,
+        );
         if (killer.Equipment[type].Count >= 1) {
           ctx.fillStyle = "#FFF";
           ctx.font = "16px Arial";
           ctx.textAlign = "right";
-          ctx.fillText(killer.Equipment[type].Count, positions[i].x + iconSize - 28, positions[i].y + iconSize - 30);
+          ctx.fillText(
+            killer.Equipment[type].Count,
+            positions[i].x + iconSize - 28,
+            positions[i].y + iconSize - 30,
+          );
         }
       }
 
       if (victim.Equipment[type]) {
-        const victimImg = await loadImage(await this.downloadImage(this.getEquipmentImageUrl(victim.Equipment[type])));
-        ctx.drawImage(victimImg, victimPositions[i].x, victimPositions[i].y, iconSize, iconSize);
+        const victimImg = await loadImage(
+          await this.downloadImage(
+            this.getEquipmentImageUrl(victim.Equipment[type]),
+          ),
+        );
+        ctx.drawImage(
+          victimImg,
+          victimPositions[i].x,
+          victimPositions[i].y,
+          iconSize,
+          iconSize,
+        );
         if (victim.Equipment[type].Count >= 1) {
           ctx.fillStyle = "#FFF";
           ctx.font = "16px Arial";
           ctx.textAlign = "right";
-          ctx.fillText(victim.Equipment[type].Count, victimPositions[i].x + iconSize - 28, victimPositions[i].y + iconSize - 30);
+          ctx.fillText(
+            victim.Equipment[type].Count,
+            victimPositions[i].x + iconSize - 28,
+            victimPositions[i].y + iconSize - 30,
+          );
         }
       }
     }
 
-    const totalDamage = kill.Participants.reduce((sum, participant) => sum + participant.DamageDone, 0);
+    const totalDamage = kill.Participants.reduce(
+      (sum, participant) => sum + participant.DamageDone,
+      0,
+    );
     const barWidth = canvas.width - 60;
     const barHeight = 40;
     const barX = 30;
@@ -141,18 +235,37 @@ class ImageGenerator {
       ctx.beginPath();
       ctx.moveTo(currentX + 10, barY);
       ctx.lineTo(currentX + participantWidth - 10, barY);
-      ctx.quadraticCurveTo(currentX + participantWidth, barY, currentX + participantWidth, barY + 10);
+      ctx.quadraticCurveTo(
+        currentX + participantWidth,
+        barY,
+        currentX + participantWidth,
+        barY + 10,
+      );
       ctx.lineTo(currentX + participantWidth, barY + barHeight - 10);
-      ctx.quadraticCurveTo(currentX + participantWidth, barY + barHeight, currentX + participantWidth - 10, barY + barHeight);
+      ctx.quadraticCurveTo(
+        currentX + participantWidth,
+        barY + barHeight,
+        currentX + participantWidth - 10,
+        barY + barHeight,
+      );
       ctx.lineTo(currentX + 10, barY + barHeight);
-      ctx.quadraticCurveTo(currentX, barY + barHeight, currentX, barY + barHeight - 10);
+      ctx.quadraticCurveTo(
+        currentX,
+        barY + barHeight,
+        currentX,
+        barY + barHeight - 10,
+      );
       ctx.lineTo(currentX, barY + 10);
       ctx.quadraticCurveTo(currentX, barY, currentX + 10, barY);
       ctx.closePath();
       ctx.fill();
 
       ctx.fillStyle = "#FFF";
-      ctx.fillText(`${Math.round(damagePercentage * 100)}%`, currentX + participantWidth / 2, barY + barHeight / 1.5);
+      ctx.fillText(
+        `${Math.round(damagePercentage * 100)}%`,
+        currentX + participantWidth / 2,
+        barY + barHeight / 1.5,
+      );
 
       currentX += participantWidth;
     }
@@ -197,14 +310,21 @@ class ImageGenerator {
       return null;
     }
 
-    const itemsPerRow = Math.floor((1200 - 2 * marginLeft + padding) / (iconSize + padding));
+    const itemsPerRow = Math.floor(
+      (1200 - 2 * marginLeft + padding) / (iconSize + padding),
+    );
     const rows = Math.ceil(inventoryItems.length / itemsPerRow);
 
-    const canvas = createCanvas(1200, rows * (iconSize + padding) + 2 * marginTop);
+    const canvas = createCanvas(
+      1200,
+      rows * (iconSize + padding) + 2 * marginTop,
+    );
     const ctx = canvas.getContext("2d");
 
-    const backgroundImage = await loadImage(await this.downloadImage("https://i.imgur.com/Cf4Ysrv.jpg"));
-    ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
+    //const backgroundImage = await loadImage(
+    //  await this.downloadImage("https://i.imgur.com/Cf4Ysrv.jpg"),
+    //);
+    //ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
 
     ctx.fillStyle = "rgba(0, 0, 0, 0.8)";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -214,14 +334,20 @@ class ImageGenerator {
 
     for (let i = 0; i < inventoryItems.length; i++) {
       const item = inventoryItems[i];
-      const itemImg = await loadImage(await this.downloadImage(this.getEquipmentImageUrl(item)));
+      const itemImg = await loadImage(
+        await this.downloadImage(this.getEquipmentImageUrl(item)),
+      );
       if (itemImg) {
         ctx.drawImage(itemImg, currentX, currentY, iconSize, iconSize);
       }
       if (item.Count && item.Count > 0) {
         ctx.fillStyle = "#FFF";
         ctx.font = "20px Arial";
-        ctx.fillText(item.Count, currentX + iconSize - 28, currentY + iconSize - 18);
+        ctx.fillText(
+          item.Count,
+          currentX + iconSize - 28,
+          currentY + iconSize - 18,
+        );
       }
 
       currentX += iconSize + padding;
@@ -247,7 +373,9 @@ class ImageGenerator {
         console.error(`Image not found for URL: ${url}`);
         const placeholderUrl = "https://i.imgur.com/LT0WPSw.jpeg";
         console.error(`Using placeholder image instead: ${placeholderUrl}`);
-        const placeholderResponse = await axios.get(placeholderUrl, { responseType: "arraybuffer" });
+        const placeholderResponse = await axios.get(placeholderUrl, {
+          responseType: "arraybuffer",
+        });
         return placeholderResponse.data;
       } else {
         throw error;
