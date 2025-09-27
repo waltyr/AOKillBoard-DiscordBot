@@ -20,7 +20,7 @@ class DiscordBot {
   }
 
   async initialize() {
-    this.client.once("ready", async () => {
+    this.client.once("clientReady", async () => {
       console.log(`Logged in as ${this.client.user.tag}!`);
       console.log(`Connected to the following servers:`);
       this.client.guilds.cache.forEach((guild) => {
@@ -131,9 +131,9 @@ class DiscordBot {
     let eventColor = 0x008000;
     if (
       kill.Victim.AllianceName.toLowerCase() ===
-        this.config.allianceName.toLowerCase() ||
+      this.config.allianceName.toLowerCase() ||
       kill.Victim.GuildName.toLowerCase() ===
-        this.config.guildName.toLowerCase() ||
+      this.config.guildName.toLowerCase() ||
       this.playerNames.includes(kill.Victim.Name.toLowerCase())
     ) {
       eventColor = 0x880808;
