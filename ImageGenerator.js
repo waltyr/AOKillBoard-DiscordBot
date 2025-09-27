@@ -12,7 +12,9 @@ class ImageGenerator {
     const canvas = createCanvas(1200, 800);
     const ctx = canvas.getContext("2d");
 
-    //const backgroundImage = await loadImage(await this.downloadImage("https://i.imgur.com/Cf4Ysrv.jpg"));
+    //const backgroundImage = await loadImage(
+    //  await this.downloadImage("https://i.imgur.com/Cf4Ysrv.jpg"),
+    //);
     //ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
 
     ctx.fillStyle = "rgba(0, 0, 0, 0.8)";
@@ -68,21 +70,21 @@ class ImageGenerator {
       );
     }
 
-    const fameIcon = await loadImage(
-      await this.downloadImage("https://i.imgur.com/geal9ri.png"),
-    );
+    //const fameIcon = await loadImage(
+    //  await this.downloadImage("https://i.imgur.com/geal9ri.png"),
+    //);
     const fameIconSize = 50;
     const fameY = canvas.height / 2 - 15;
-    ctx.drawImage(
-      fameIcon,
-      570,
-      fameY - fameIconSize - 5,
-      fameIconSize,
-      fameIconSize,
-    );
+    //ctx.drawImage(
+    //  fameIcon,
+    //  570,
+    //  fameY - fameIconSize - 5,
+    //  fameIconSize,
+    //  fameIconSize,
+    //);
     ctx.font = "24px Arial";
     ctx.fillText(
-      `${this.dFormatter(kill.TotalVictimKillFame)}`,
+      `Fame: ${this.dFormatter(kill.TotalVictimKillFame)}`,
       600,
       fameY + 20,
     );
@@ -92,21 +94,21 @@ class ImageGenerator {
       kill.GroupMembers.length > 1 &&
       kill.GroupMembers.length != kill.Participants.length
     ) {
-      const groupIcon = await loadImage(
-        await this.downloadImage("https://i.imgur.com/josec2F.png"),
-      );
+      //const groupIcon = await loadImage(
+      //  await this.downloadImage("https://i.imgur.com/josec2F.png"),
+      // );
       const groupIconSize = 50;
       const groupY = fameY + 110;
-      ctx.drawImage(
-        groupIcon,
-        570,
-        groupY - groupIconSize + 30,
-        groupIconSize,
-        groupIconSize,
-      );
+      //ctx.drawImage(
+      //  groupIcon,
+      //  570,
+      //  groupY - groupIconSize + 30,
+      //  groupIconSize,
+      //  groupIconSize,
+      //);
       ctx.font = "24px Arial";
       ctx.fillText(
-        `${this.dFormatter(kill.GroupMembers.length)}`,
+        `Group: ${this.dFormatter(kill.GroupMembers.length)}`,
         600,
         groupY + 50,
       );
@@ -371,12 +373,12 @@ class ImageGenerator {
     } catch (error) {
       if (error.response && error.response.status === 404) {
         console.error(`Image not found for URL: ${url}`);
-        const placeholderUrl = "https://i.imgur.com/LT0WPSw.jpeg";
-        console.error(`Using placeholder image instead: ${placeholderUrl}`);
-        const placeholderResponse = await axios.get(placeholderUrl, {
-          responseType: "arraybuffer",
-        });
-        return placeholderResponse.data;
+        //const placeholderUrl = "https://i.imgur.com/LT0WPSw.jpeg";
+        //console.error(`Using placeholder image instead: ${placeholderUrl}`);
+        //const placeholderResponse = await axios.get(placeholderUrl, {
+        //  responseType: "arraybuffer",
+        //});
+        return;
       } else {
         throw error;
       }
